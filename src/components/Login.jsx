@@ -1,20 +1,25 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { login } from "../api/api";
-import { StyledContainer, StyledButton, StyledInput } from "../styles/StyledComponents";
+import {
+  StyledContainer,
+  StyledButton,
+  StyledInput,
+  StyledSelect,
+} from "../styles/StyledComponents";
 
 const Login = () => {
-  const [credentials, setCredentials] = useState({ username: "", password: "" });
+  const [credentials, setCredentials] = useState({
+    username: "",
+    password: "",
+    role: "ADMIN",
+  });
   const navigate = useNavigate();
 
   const handleLogin = async () => {
-    try {
-      const { data } = await login(credentials.username, credentials.password);
-      localStorage.setItem("token", data.token);
-      data.role === "ADMIN" ? navigate("/admin") : navigate("/client");
-    } catch (err) {
-      alert("Invalid credentials");
-    }
+    localStorage.setItem("username", credentials.username);
+    localStorage.setItem("password", credentials.password);
+    localStorage.setItem("role", credentials.role);
+    credentials.role === "ADMIN" ? navigate("/admin") : navigate("/client");
   };
 
   return (
@@ -24,14 +29,29 @@ const Login = () => {
         type="text"
         placeholder="Username"
         value={credentials.username}
-        onChange={(e) => setCredentials({ ...credentials, username: e.target.value })}
+        required
+        onChange={(e) =>
+          setCredentials({ ...credentials, username: e.target.value })
+        }
       />
       <StyledInput
         type="password"
         placeholder="Password"
         value={credentials.password}
-        onChange={(e) => setCredentials({ ...credentials, password: e.target.value })}
+        required
+        onChange={(e) =>
+          setCredentials({ ...credentials, password: e.target.value })
+        }
       />
+      <StyledSelect
+        value={credentials.role}
+        onChange={(e) =>
+          setCredentials({ ...credentials, role: e.target.value })
+        }
+      >
+        <option value="ADMIN">Admin</option>
+        <option value="CLIENT">Client</option>
+      </StyledSelect>
       <StyledButton onClick={handleLogin}>Login</StyledButton>
     </StyledContainer>
   );
