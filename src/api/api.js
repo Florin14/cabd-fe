@@ -8,9 +8,15 @@ const API = axios.create({
 export const getProducts = () => API.get("/products");
 export const addProduct = (product) => API.post("/products", product);
 export const deleteProduct = (id) => API.delete(`/products/${id}`);
-export const deleteOrder = (id) => API.delete(`/order/${id}`);
 
-export const getOrders = () => API.get("/orders/admin");
-export const placeOrder = (order) => API.post("/orders/client", order);
+export const getAllProductsHistory = () => API.get("/productHistories");
+export const productStateAtTimestamp = (id) => API.delete(`/productHistories/state-at-timestamp`);
+export const getProductHistory = (product) => API.post("/productHistories", product);
+export const getProductPricePeriods = (id) => API.get(`/productHistories/price-periods/${id}`);
+export const getProductPriceDifferences = (id) => API.get(`/productHistories/price-differences/${id}`);
+
+export const getOrders = () => API.get("/orders");
+export const placeOrder = (order) => API.post("/orders", order);
+export const deleteOrder = (id) => API.delete(`/orders/${id}`);
 
 export default API;
