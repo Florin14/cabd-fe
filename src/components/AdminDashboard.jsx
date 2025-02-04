@@ -67,7 +67,7 @@ const StyledTable = styled.table`
     background-color: #f4f4f4;
   }
 
-  tbody tr:nth-child(even) {
+  tbody tr:nth-of-type(even) {
     background-color: #f9f9f9;
   }
 `;
@@ -136,6 +136,11 @@ const AdminDashboard = () => {
   const handleProductClick = (productId) => {
     // Navigate to the product page with the given productId
     navigate(`/admin/products/${productId}`);
+  };
+
+  const handleAllProductsHistoryClick = () => {
+    // Navigate to the product page with the given productId
+    navigate(`/admin/products-history`);
   };
 
   return (
@@ -208,12 +213,12 @@ const AdminDashboard = () => {
           <tbody>
             {products.length > 0 ? (
               products.map((product, index) => (
-                <tr key={product.id}>
+                <tr key={index}>
                   <td>{index + 1}</td>
                   <td>{product.name}</td>
                   <td>{product.stockQuantity}</td>
                   <td>${product.price.toFixed(2)}</td>
-                  <td>{new Date(product.validFrom).toLocaleDateString()}</td>
+                  <td>{new Date(product.validFrom).toLocaleDateString('en-GB')}</td>
                   <td>
                     <StyledButton
                       disabled={
@@ -257,11 +262,10 @@ const AdminDashboard = () => {
           <tbody>
             {orders.length > 0 ? (
               orders.map((order, index) => {
-                const details = `${order.product.name}, quantity: ${
-                  order.quantity
-                }, total price: $${order.quantity * order.product.price}`;
+                const details = `${order?.product?.name}, quantity: ${order?.quantity
+                  }, total price: $${order?.quantity * order?.product?.price}`;
                 return (
-                  <tr key={order.id}>
+                  <tr key={index}>
                     <td>{index + 1}</td>
                     <td>{details}</td>
                     <td>
@@ -281,6 +285,11 @@ const AdminDashboard = () => {
             )}
           </tbody>
         </StyledTable>
+        <StyledButton
+          onClick={() => handleAllProductsHistoryClick()}
+        >
+          See products history
+        </StyledButton>
       </DashboardSection>
     </StyledContainer>
   );
