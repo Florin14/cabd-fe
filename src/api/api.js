@@ -11,7 +11,7 @@ export const deleteProduct = (id) => API.delete(`/products/${id}`);
 
 export const getAllProductsHistory = () => API.get("/productHistories");
 export const productStateAtTimestamp = (id) => API.delete(`/productHistories/state-at-timestamp`);
-export const getProductHistory = (product) => API.post("/productHistories", product);
+// export const getProductHistory = (product) => API.post("/productHistories", product);
 export const getProductPricePeriods = (id) => API.get(`/productHistories/price-periods/${id}`);
 export const getProductPriceDifferences = (id) => API.get(`/productHistories/price-differences/${id}`);
 

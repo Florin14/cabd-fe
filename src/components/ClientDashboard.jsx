@@ -102,8 +102,8 @@ const ClientDashboard = () => {
             Select a Product
           </option>
           {products.map((product) => (
-            <option key={product.productId} value={product.productId}>
-              {product.name} (Available: {product.stockQuantity})
+            <option key={product?.productId} value={product?.productId}>
+              {product?.name} (Available: {product?.stockQuantity})
             </option>
           ))}
         </StyledSelect>
@@ -140,10 +140,10 @@ const ClientDashboard = () => {
         <h3>Current Order</h3>
         {currentOrder ? (
           <StyledCard>
-            <h4>Product: {currentOrder.product.name}</h4>
-            <p>Quantity: {currentOrder.quantity}</p>
-            <p>Price: ${currentOrder.product.price}</p>
-            <p>Status: {currentOrder.status}</p>
+            <h4>Product: {currentOrder?.product?.name}</h4>
+            <p>Quantity: {currentOrder?.quantity}</p>
+            <p>Price: ${currentOrder?.product?.price}</p>
+            <p>Status: {currentOrder?.status}</p>
             <StyledButton onClick={handleSendOrder}>Send Order</StyledButton>
             <StyledButton onClick={handleRemoveFromOrder}>
               Remove from Order
@@ -159,10 +159,10 @@ const ClientDashboard = () => {
         {orders.length > 0 ? (
           orders.map((order, index) => (
             <StyledCard key={index}>
-              <h4>Product: {order.product.name}</h4>
-              <p>Quantity: {order.quantity}</p>
-              <p>Price: ${order.product.price}</p>
-              <p>Status: {order.status}</p>
+              <h4>Product: {order?.product?.name}</h4>
+              <p>Quantity: {order?.quantity}</p>
+              <p>Price: ${order?.product?.price}</p>
+              <p>Status: {order?.status}</p>
             </StyledCard>
           ))
         ) : (
