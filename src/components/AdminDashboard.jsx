@@ -122,7 +122,6 @@ const AdminDashboard = () => {
 
   const handleDeleteProduct = async (id) => {
     await deleteProduct(id).then((res) => {
-      console.log(res);
     });
     fetchProducts();
   };
@@ -162,7 +161,7 @@ const AdminDashboard = () => {
             type="number"
             placeholder="Quantity"
             min="1"
-            value={newProduct.stockQuantity}
+            value={newProduct?.stockQuantity}
             onChange={(e) =>
               setNewProduct({
                 ...newProduct,
@@ -175,7 +174,7 @@ const AdminDashboard = () => {
             placeholder="Price"
             min="0.01"
             step="0.01"
-            value={newProduct.price}
+            value={newProduct?.price}
             onChange={(e) =>
               setNewProduct({
                 ...newProduct,
@@ -215,25 +214,25 @@ const AdminDashboard = () => {
               products.map((product, index) => (
                 <tr key={index}>
                   <td>{index + 1}</td>
-                  <td>{product.name}</td>
-                  <td>{product.stockQuantity}</td>
-                  <td>${product.price.toFixed(2)}</td>
-                  <td>{new Date(product.validFrom).toLocaleDateString('en-GB')}</td>
+                  <td>{product?.name}</td>
+                  <td>{product?.stockQuantity}</td>
+                  <td>${product?.price?.toFixed(2)}</td>
+                  <td>{new Date(product?.validFrom).toLocaleDateString('en-GB')}</td>
                   <td>
                     <StyledButton
                       disabled={
                         orders?.filter(
                           (order) =>
-                            order?.product?.productId === product.productId
+                            order?.product?.productId === product?.productId
                         )?.length > 0
                       }
-                      onClick={() => handleDeleteProduct(product.productId)}
+                      onClick={() => handleDeleteProduct(product?.productId)}
                     >
                       Delete
                     </StyledButton>
 
                     <StyledButton
-                      onClick={() => handleProductClick(product.productId)}
+                      onClick={() => handleProductClick(product?.productId)}
                     >
                       History
                     </StyledButton>
@@ -270,7 +269,7 @@ const AdminDashboard = () => {
                     <td>{details}</td>
                     <td>
                       <StyledButton
-                        onClick={() => handleDeleteOrder(order.orderId)}
+                        onClick={() => handleDeleteOrder(order?.orderId)}
                       >
                         Delete
                       </StyledButton>
