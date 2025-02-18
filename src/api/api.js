@@ -8,6 +8,7 @@ const API = axios.create({
 export const getProducts = () => API.get("/products");
 export const addProduct = (product) => API.post("/products", product);
 export const deleteProduct = (id) => API.delete(`/products/${id}`);
+export const updateProduct = (product) => API.put(`/products/${product?.id}`, product);
 
 export const getAllProductsHistory = () => API.get("/productHistories");
 export const productStateAtTimestamp = (productId, timestamp) =>

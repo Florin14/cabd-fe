@@ -82,6 +82,9 @@ const AdminDashboard = () => {
     validFrom: new Date(),
   });
 
+  const [productToUpdate, setProductToUpdate] = useState(null);
+
+
   const navigate = useNavigate();
 
 
@@ -198,6 +201,55 @@ const AdminDashboard = () => {
 
       <DashboardSection>
         <h3>Product Inventory</h3>
+        (<div>
+          <h3>Add Product</h3>
+          <div>
+            <StyledInput
+              type="text"
+              placeholder="Product Name"
+              value={newProduct.name}
+              onChange={(e) =>
+                setNewProduct({ ...newProduct, name: e.target.value })
+              }
+            />
+            <StyledInput
+              type="number"
+              placeholder="Quantity"
+              min="1"
+              value={newProduct?.stockQuantity}
+              onChange={(e) =>
+                setNewProduct({
+                  ...newProduct,
+                  stockQuantity: parseInt(e.target.value),
+                })
+              }
+            />
+            <StyledInput
+              type="number"
+              placeholder="Price"
+              min="0.01"
+              step="0.01"
+              value={newProduct?.price}
+              onChange={(e) =>
+                setNewProduct({
+                  ...newProduct,
+                  price: parseFloat(e.target.value),
+                })
+              }
+            />
+            <label>Valid From</label>
+            <StyledDatePickerWrapper>
+              <DatePicker
+                selected={newProduct.validFrom}
+                onChange={(date) =>
+                  setNewProduct({ ...newProduct, validFrom: date })
+                }
+                dateFormat="yyyy-MM-dd"
+              />
+            </StyledDatePickerWrapper>
+            <StyledButton onClick={handleAddProduct}>Add Product</StyledButton>
+          </div>
+        </div>)
         <StyledTable>
           <thead>
             <tr>

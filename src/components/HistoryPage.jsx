@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { Tabs, Tab, Box, Typography, CircularProgress, Paper, Table, TableContainer, TableHead, TableRow, TableCell, TableBody, Card, CardContent } from "@mui/material";
 import { getProductPricePeriods, getProductPriceDifferences, productStateAtTimestamp } from "../api/api";
 import dayjs from "dayjs";
 import { DateTimePicker } from "@mui/x-date-pickers/DateTimePicker";
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers';
+import { StyledButton } from "../styles/StyledComponents";
 
 const HistoryPage = () => {
   const [historyType, setHistoryType] = useState("pricePeriods");
@@ -163,15 +164,15 @@ const HistoryPage = () => {
 
           <LocalizationProvider dateAdapter={AdapterDayjs}>
             <DateTimePicker
-            label="Select Timestamp"
-            value={selectedDate}
-            onChange={(newDate) => {
-              setSelectedDate(newDate);
-              fetchStateAtTimestamp(newDate);
-            }}
-            sx={{ mt: 2, mb: 2, width: "100%" }}
+              label="Select Timestamp"
+              value={selectedDate}
+              onChange={(newDate) => {
+                setSelectedDate(newDate);
+                fetchStateAtTimestamp(newDate);
+              }}
+              sx={{ mt: 2, mb: 2, width: "100%" }}
             />
-                </LocalizationProvider>
+          </LocalizationProvider>
 
 
           {loading ? (
@@ -195,12 +196,21 @@ const HistoryPage = () => {
 
     return null;
   };
+  const handleAllProductsHistoryClick = () => {
+    // Navigate to the product page with the given productId
+    navigate(`/admin`);
+  };
+  const navigate = useNavigate();
 
   return (
     <Box sx={{ width: "90%", margin: "auto", mt: 4 }}>
-      <Typography variant="h4" sx={{ mb: 2 }}>
-        Product History
-      </Typography>
+      <div style={{ display: "flex", justifyContent: "space-between", maxHeight: 60, marginBottom: 15 }}><h2>Batteries History</h2>
+        <StyledButton
+          onClick={() => handleAllProductsHistoryClick()}
+          style={{ background: "red" }}
+        >
+          Back to products page
+        </StyledButton></div>
 
       {/* Tabs for History Type Selection */}
       <Tabs value={historyType} onChange={(e, newValue) => setHistoryType(newValue)} sx={{ mb: 3 }}>
@@ -209,14 +219,16 @@ const HistoryPage = () => {
         <Tab label="State at Timestamp" value="state" />
       </Tabs>
 
-      {loading ? (
-        <Box display="flex" justifyContent="center" alignItems="center" sx={{ height: "200px" }}>
-          <CircularProgress />
-        </Box>
-      ) : (
-        renderTable()
-      )}
-    </Box>
+      {
+        loading ? (
+          <Box display="flex" justifyContent="center" alignItems="center" sx={{ height: "200px" }}>
+            <CircularProgress />
+          </Box>
+        ) : (
+          renderTable()
+        )
+      }
+    </Box >
   );
 };
 
